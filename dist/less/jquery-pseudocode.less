@@ -10,6 +10,31 @@
         border-left: 1px solid #dddddd;
     }
     
+    div.line {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        
+        .line-number, .indent, .text {
+            -webkit-flex: 0 1 auto;
+            -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+        }
+    }
+    
+    .line-number {
+        text-align: right;
+        margin-right: 1em;
+    }
+    
+    .indent {
+        border-left: 1px solid #dddddd;
+        width: 2em;
+    }
+    
     .keyword {
         font-weight: bold;
         color: #000066;

@@ -164,7 +164,7 @@ for i = 1 to N
                                 <div class="example">
                                     <style type="text/css">
                                         .big-keyword {
-                                            font-size: 2em;
+                                            border: 1px solid blue;
                                         }
                                     </style>
                                     <script type="text/javascript">
@@ -176,7 +176,7 @@ for i = 1 to N
                                                     // sets the style attribute
                                                     'if': {style:'color:#ff0000;text-decoration:underline;'},
                                                     // sets the class
-                                                    'elif': {class:'big-keyword'},
+                                                    'print': {class:'big-keyword'},
                                                     // sets both the style and class
                                                     'for': {style:'color:#990000', class:'big-keyword'}
                                                 }
@@ -190,15 +190,14 @@ for i = 1 to N
     // A simple if statement:
     if i = j
         N = N + 1
-    elif a = b
-        N = N - 1
+        print N
 </pre>
                                 </div>
                                 <div class="highlight">
 <pre class="prettyprint linenums">
 &lt;style type="text/css"&gt;
     .big-keyword {
-        font-size: 2em;
+        border: 1px solid blue;
     }
 &lt;/style&gt;
 &lt;script type="text/javascript"&gt;
@@ -222,8 +221,7 @@ for i = 1 to N
     // A simple if statement:
     if i = j
         N = N + 1
-    elif a = b
-        N = N - 1
+        print N
 &lt;/pre&gt;
 </pre>
                                 </div>
@@ -335,6 +333,47 @@ for i = 1 to N
 &lt;script type="text/javascript"&gt;
     $('#example-tab').pseudocode({
         tab: 2
+    });
+&lt;/script&gt;
+&lt;pre&gt;
+var N = 6
+var j = 4
+for i = 1 to N
+  // A simple if statement:
+  if i = j
+    N = N + 1
+&lt;/pre&gt;
+</pre>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><code>lineNumbers</code></td>
+                            <td>
+                                <p>Specifies whether the lines are numbered or not:</p>
+                                
+                                <div class="example">
+                                    <script type="text/javascript">
+                                        $(document).ready(function() {
+                                            $('#example-linenums').pseudocode({
+                                                lineNumbers: true
+                                            });
+                                        });
+                                    </script>
+<pre id="example-linenums">
+var N = 6
+var j = 4
+for i = 1 to N
+    // A simple if statement:
+    if i = j
+        N = N + 1
+</pre>
+                                </div>
+                                <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $('#example-linenums').pseudocode({
+        lineNumbers: true
     });
 &lt;/script&gt;
 &lt;pre&gt;

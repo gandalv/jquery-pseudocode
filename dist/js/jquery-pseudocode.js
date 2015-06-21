@@ -5,7 +5,7 @@
  * 
  * Licensed under BSD-3-Clause
  */
-(function($) {
+(function($) {  
     $.fn.pseudocode = function(options, optionsHandling) {
  
         $(this).each(function() {
@@ -135,7 +135,7 @@
 
             var depth = 0;
             var id = $this.attr('id');
-            var html = '<ul class="pseudocode"' + (id ? ' id="' + id + '"' : '') + '>';
+            var html = '<div class="pseudocode"' + (id ? ' id="' + id + '"' : '') + '>';
 
             var comments = Array(Object.keys(settings.comment).length);
             var commentIdx = 0;
@@ -152,27 +152,21 @@
                     }
                 }
                 
-                // Compose the line number
-                var linenumStr = '' + n;
-                for (var j = linenumStr.length; j < linenumChars; j++) {
-                    linenumStr = '&nbsb;' + linenumStr;
+                html += '<div class="line">';
+                
+                if (settings.lineNumbers === true) {
+                    // Compose the line number
+                    var linenumStr = '' + n;
+                    for (var j = linenumStr.length; j < linenumChars; j++) {
+                        linenumStr = '&nbsp;' + linenumStr;
+                    }
+                    html += '<div class="line-number">' + linenumStr + '</div>';
                 }
 
                 // Check on which level we are.
                 var indent = Math.floor((i + 1)/settings.tab);
-                if (indent > depth) {
-                    for (var i = depth; i < indent - 1; i++) {
-                        html += '<ul><li>';
-                    }
-                    html += '<ul>';
-                }
-                else if (indent < depth) {
-                    for (var i = depth; i > indent; i--) {
-                        html += '</li></ul>';
-                    }
-                }
-                else {
-                    html += '</li>';
+                for (var i = 0; i < indent - 1; i++) {
+                    html += '<div class="indent">&nbsp;</div>';
                 }
 
                 // Update current depth.
@@ -202,14 +196,10 @@
                         line = keywords(line, keyword, color);
                     }
                 });
-                html += '<li>' + line.trim();
+                html += '<div class="text">' + line.trim() + '</div></div>';
             });
 
-            for (var i = depth; i > 0; i--) {
-                html += '</li></ul>';
-            }
-
-            html += '</ul>';
+            html += '</div>';
 
             $ul = $(html);
             $this.after($ul);
