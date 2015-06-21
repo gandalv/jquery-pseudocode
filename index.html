@@ -159,19 +159,26 @@ for i = 1 to N
                         <tr>
                             <td><code>keywords</code></td>
                             <td>
-                                <p>Allows to add keywords and adjust the color. Note that the below example <u>does not use MathJax</u>.</p>
+                                <p>Allows to specify keywords and adjust the color, style or class. Note that the below example <u>does not use MathJax</u>.</p>
                                 
                                 <div class="example">
+                                    <style type="text/css">
+                                        .big-keyword {
+                                            font-size: 2em;
+                                        }
+                                    </style>
                                     <script type="text/javascript">
                                         $(document).ready(function() {
                                             $('#example-keywords').pseudocode({
                                                 keywords: {
-                                                    'if': '#990000',
-                                                    'for': '#990000',
-                                                    'var': '#990000',
-                                                    'function': '#990000',
-                                                    'return': '#990000',
-                                                    'this': '#990000'
+                                                    // only sets the color, text will be bold
+                                                    'var': '#ff0000',
+                                                    // sets the style attribute
+                                                    'if': {style:'color:#ff0000;text-decoration:underline;'},
+                                                    // sets the class
+                                                    'elif': {class:'big-keyword'},
+                                                    // sets both the style and class
+                                                    'for': {style:'color:#990000', class:'big-keyword'}
                                                 }
                                             });
                                         });
@@ -183,19 +190,28 @@ for i = 1 to N
     // A simple if statement:
     if i = j
         N = N + 1
+    elif a = b
+        N = N - 1
 </pre>
                                 </div>
                                 <div class="highlight">
 <pre class="prettyprint linenums">
+&lt;style type="text/css"&gt;
+    .big-keyword {
+        font-size: 2em;
+    }
+&lt;/style&gt;
 &lt;script type="text/javascript"&gt;
     $('#example-keywords').pseudocode({
         keywords: {
-            'if': '#990000',
-            'for': '#990000',
-            'var': '#990000',
-            'function': '#990000',
-            'return': '#990000',
-            'this': '#990000'
+            // only sets the color, text will be bold
+            'var': '#ff0000',
+            // sets the style attribute
+            'if': {style:'color:#ff0000;text-decoration:underline;'},
+            // sets the class
+            'elif': {class:'big-keyword'},
+            // sets both the style and class
+            'for': {style:'color:#990000', class:'big-keyword'}
         }
     });
 &lt;/script&gt;
@@ -206,6 +222,8 @@ for i = 1 to N
     // A simple if statement:
     if i = j
         N = N + 1
+    elif a = b
+        N = N - 1
 &lt;/pre&gt;
 </pre>
                                 </div>
@@ -214,45 +232,77 @@ for i = 1 to N
                         <tr>
                             <td><code>comment</code></td>
                             <td>
-                                <p>Allows to add characters used for comments as well as their color. <b>Note that currently, only full line comments are supported - inline comments as for example using <code>/* ... */</code> in C++, are not supported.</b></p>
+                                <p>Allows to specify characters used for comments as well as their color, style or class in the same way as with keywords. <b>Note that currently, only full line comments are supported - inline comments as for example using <code>/* ... */</code> in C++, are not supported.</b></p>
                                 
                                 <div class="example">
+                                    <style type="text/css">
+                                        .sql-comment {
+                                            color: #ffffff;
+                                            background-color: #006600;
+                                        }
+                                        .python-comment {
+                                            background-color: #cccccc;
+                                            color: #006600;
+                                        }
+                                    </style>
                                     <script type="text/javascript">
                                         $(document).ready(function() {
                                             $('#example-comment').pseudocode({
                                                 comment: {
-                                                    '//': '#990000',
-                                                    '%': '#990000'
+                                                    // just color, text will NOT be bold
+                                                    '//': '#660000',
+                                                    // style
+                                                    '%': {style:'color:#006600;font-style:italic'},
+                                                    // class
+                                                    '--': {class:'sql-comment'},
+                                                    // class and style
+                                                    '#': {class:'python-comment', style:'font-style:italic'}
                                                 }
                                             });
                                         });
                                     </script>
 <pre id="example-comment">
-var N = 6
-var j = 4
+var N = 6 // Comment 1
+var j = 4 % Comment 2
 for i = 1 to N
-    % Different comment style before if statement:
+    -- Comment 3
     if i = j
-        N = N + 1
+        N = N + 1 # Comment 4
 </pre>
                                 </div>
                                 <div class="highlight">
 <pre class="prettyprint linenums">
+&lt;style type="text/css"&gt;
+    .sql-comment {
+        color: #cccccc;
+        background-color: #66aa66;
+    }
+    .python-comment {
+        background-color: #cccccc;
+        color: #66aa66;
+    }
+&lt;/style&gt;
 &lt;script type="text/javascript"&gt;
     $('#example-comment').pseudocode({
         comment: {
-            '//': '#990000',
-            '%': '#990000'
+            // just color, text will NOT be bold
+            '//': '#ff0000',
+            // style
+            '%': {style:'color:#00ff00;font-style:italic'},
+            // class
+            '--': {class:'sql-comment'},
+            // class and style
+            '#': {class:'python-comment', style:'font-style:italic'}
         }
     });
 &lt;/script&gt;
 &lt;pre&gt;
-var N = 6
-var j = 4
+var N = 6 // Comment 1
+var j = 4 % Comment 2
 for i = 1 to N
-    % Different comment style before if statement:
+    -- Comment 3
     if i = j
-        N = N + 1
+        N = N + 1 # Comment 4
 &lt;/pre&gt;
 </pre>
                                 </div>
@@ -300,6 +350,56 @@ for i = 1 to N
                             </td>
                         </tr>
                     </table>
+                    <h3 id="configuration-options-merging">Configuration Options Merging</h3>
+                    <p>
+                        There are several was of merging the configuration options with the default configuration. The method is determined using a second argument to the <code>pseudocode()</code> method. It can have one of four values:
+                        <table class="table">
+                            <tr>
+                                <td><code>'extend'</code> or not specified</td>
+                                <td>
+                                    The the specified configuration options are merged with the defaults using jQuery's <a href="http://api.jquery.com/jQuery.extend/">extend()</a> method like this: <code>$.extend(defaults, options)</code>.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>'extend-recursive'</code></td>
+                                <td>
+                                    Like <code>'extend'</code> but recursive: <code>$.extend(true, defaults, options)</code>.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>'override'</code></td>
+                                <td>
+                                    The default configuration is thrown away and replaced with supplied options. <em>Use with caution!</em> E.g. the <code>tab</code> must be set to something.
+                                </td>
+                            </tr>
+                        </table>
+                    </p>
+                    <p>
+                        The default configuration is following:
+<pre class="prettyprint">
+defaults = {
+    keywords: {
+        'if': {class:'keyword'},
+        'for': {class:'keyword'},
+        'var': {class:'keyword'},
+        'function': {class:'keyword'},
+        'return': {class:'keyword'},
+        'this': {class:'keyword'},
+        'while': {class:'keyword'},
+        'end': {class:'keyword'},
+        'endif': {class:'keyword'},
+        'endfor': {class:'keyword'},
+        'endwhile': {class:'keyword'},
+    },
+    comment: {
+        '//': {class:'comment'},
+        '%': {class:'comment'}
+    },
+    tab: 4,
+    lineNumbers: false
+}
+</pre>
+                    </p>
                     
                     <div class="page-header">
                         <h2 id="examples">Examples</h2>
