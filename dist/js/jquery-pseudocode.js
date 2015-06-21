@@ -191,12 +191,16 @@
                 }
 
                 // Scan for keywords:
+                var foundKeywords = [];
                 $.each(settings.keywords, function(keyword, color) {
                     var kIdx = line.indexOf(keyword);
                     if (kIdx >= 0 && kIdx < commentStartPos) {
-                        line = keywords(line, keyword, color);
+                        foundKeywords.push([keyword, color]);
                     }
                 });
+                for (var kIdx = 0; kIdx < foundKeywords.length; kIdx++) {
+                    line = keywords(line, foundKeywords[kIdx][0], foundKeywords[kIdx][1]);
+                }
                 html += '<div class="text">' + line.trim() + '</div></div>';
             });
 
