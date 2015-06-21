@@ -192,7 +192,8 @@
 
                 // Scan for keywords:
                 $.each(settings.keywords, function(keyword, color) {
-                    if (line.indexOf(keyword) < commentStartPos) {
+                    var kIdx = line.indexOf(keyword);
+                    if (kIdx >= 0 && kIdx < commentStartPos) {
                         line = keywords(line, keyword, color);
                     }
                 });
