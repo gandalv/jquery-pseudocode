@@ -165,7 +165,7 @@
 
                 // Check on which level we are.
                 var indent = Math.floor((i + 1)/settings.tab);
-                for (var i = 0; i < indent - 1; i++) {
+                for (var i = 0; i < indent; i++) {
                     html += '<div class="indent">&nbsp;</div>';
                 }
 
