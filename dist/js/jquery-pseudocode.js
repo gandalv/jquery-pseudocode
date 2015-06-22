@@ -156,7 +156,7 @@
                 
                 if (settings.lineNumbers === true) {
                     // Compose the line number
-                    var linenumStr = '' + n;
+                    var linenumStr = '' + (n + 1);
                     for (var j = linenumStr.length; j < linenumChars; j++) {
                         linenumStr = '&nbsp;' + linenumStr;
                     }
